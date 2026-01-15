@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'GesHotel - Hôtel de Luxe')</title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Template SONA CSS -->
+    <link rel="stylesheet" href="{{ asset('template/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/elegant-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/slicknav.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/css/style.css') }}">
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    @vite(['resources/css/app.css']) <!-- si tu utilises Vite -->
+    @stack('styles')
+</head>
+<body>
+    <div id="preloder"><div class="loader"></div></div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
-        </div>
-    </body>
+    @include('partials.header')
+
+    @yield('content')
+
+    @include('partials.footer')
+
+    @include('partials.search-model')
+
+    <!-- Scripts SONA -->
+    <script src="{{ asset('template/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('template/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('template/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('template/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('template/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('template/js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('template/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('template/js/main.js') }}"></script>
+
+    @stack('scripts')
+</body>
 </html>
