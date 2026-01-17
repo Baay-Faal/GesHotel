@@ -10,6 +10,10 @@
                         <li><i class="fa fa-envelope"></i> contact@geshotel.com</li>
                     </ul>
                 </div>
+                <form class="hero-form" action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-link logout-button">Déconnexion</button>
+    </form>
                 <div class="d-flex align-items-center gap-3">
 
                     <!-- Bouton Réserver -->
@@ -17,7 +21,6 @@
                         Réserver maintenant
                     </a>
 
-                    <!-- Authentification -->
                     @guest
                         <a href="{{ route('login') }}" class="bk-btn" style="background: #dfa974;">
                             Connexion
@@ -26,25 +29,35 @@
                             Inscription
                         </a>
                     @else
-                        <div class="dropdown">
-                            <a href="#" class="bk-btn dropdown-toggle" data-toggle="dropdown" 
+                        {{-- Menu utilisateur --}}
+                        <div class="dropdown d-inline-block">
+                            <a href="#" 
+                               class="bk-btn dropdown-toggle" 
+                               data-toggle="dropdown" 
+                               aria-haspopup="true" 
+                               aria-expanded="false"
                                style="background: #dfa974; color: white;">
-                                {{ Str::limit(Auth::user()->name, 15) }}
+                                {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="{{ route('profile.edit') }}" class="dropdown-item">
                                     Mon profil
                                 </a>
-                                <a href="{{ route('reservations.index') }}" class="dropdown-item">
+
+                                {{-- tu activeras cette route plus tard si tu veux --}}
+                                {{-- <a href="{{ route('reservations.index') }}" class="dropdown-item">
                                     Mes réservations
-                                </a>
-                                @if(Auth::user()->role === 'admin')
+                                </a> --}}
+
+                                @if(Auth::user()->isAdmin())
                                     <div class="dropdown-divider"></div>
                                     <a href="{{ route('admin.dashboard') }}" class="dropdown-item text-primary font-weight-bold">
                                         Administration
                                     </a>
                                 @endif
+
                                 <div class="dropdown-divider"></div>
+
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger">
@@ -82,9 +95,6 @@
                                 </li>
                                 <li class="{{ request()->is('a-propos') || request()->is('about') ? 'active' : '' }}">
                                     <a href="{{ route('about') }}">À propos</a>
-                                </li>
-                                <li class="{{ request()->is('blog*') ? 'active' : '' }}">
-                                    <a href="#">Actualités</a>
                                 </li>
                                 <li class="{{ request()->is('contact') ? 'active' : '' }}">
                                     <a href="{{ route('contact') }}">Contact</a>

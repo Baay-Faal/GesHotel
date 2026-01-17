@@ -7,6 +7,10 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
+    <form class="hero-form" action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-link logout-button">Déconnexion</button>
+    </form>
     <div class="container">
         <div class="row">
             <div class="col-lg-6">

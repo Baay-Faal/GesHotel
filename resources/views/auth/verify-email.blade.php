@@ -1,31 +1,41 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+@extends('layouts.guest')
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
-        </div>
-    @endif
+@section('title', 'Vérification email - GesHotel')
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+@section('content')
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0 text-center" style="border-radius: 20px;">
+                <div class="card-body p-5">
+                    <i class="fa fa-envelope fa-4x text-primary mb-4"></i>
+                    <h3>Vérifiez votre adresse email</h3>
+                    <p class="mb-4">
+                        Un lien de vérification a été envoyé à votre adresse email.
+                    </p>
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+                    @if (session('resent'))
+                        <div class="alert alert-success">
+                            Un nouveau lien vient de vous être envoyé !
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('verification.send') }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-primary">
+                            Renvoyer le lien de vérification
+                        </button>
+                    </form>
+
+                    <form method="POST" action="{{ route('logout') }}" class="d-inline ml-3">
+                        @csrf
+                        <button type="submit" class="btn btn-link text-muted">
+                            Déconnexion
+                        </button>
+                    </form>
+                </div>
             </div>
-        </form>
-
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+        </div>
     </div>
-</x-guest-layout>
+</div>
+@endsection

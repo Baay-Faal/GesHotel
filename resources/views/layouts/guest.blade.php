@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{ asset('template/css/slicknav.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/css/style.css') }}">
 
-    @vite(['resources/css/app.css']) <!-- si tu utilises Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js']) <!-- si tu utilises Vite -->
     @stack('styles')
 </head>
 <body>
